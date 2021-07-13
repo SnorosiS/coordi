@@ -23,6 +23,7 @@ class Daytrend(models.Model):
 class Munthtrend(models.Model):
     munthtrend = models.TextField()
     updatedate = models.DateTimeField(auto_now=True)
+    
 class Notice(models.Model):
     notice = models.TextField()
     updatedate = models.DateTimeField(auto_now=True)
