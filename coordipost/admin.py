@@ -1,12 +1,6 @@
 from django.contrib import admin
-from .models import Account
-from .models import Item
-from .models import Coode
-from .models import Daytrend
-from .models import Munthtrend
-from .models import Notice
-from .models import Marking
-from .models import Sns
+from .models import Account,Item,Coode,Daytrend,Munthtrend,Notice,Marking,Sns
+
 
 # Register your models here.
 
