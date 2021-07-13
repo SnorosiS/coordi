@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div cless="conteiner">
+
+<form class="form-signin" method='post'>{% csrf_token %}
+  
+  
+  <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+   {% if error %}
+   {{ error }}
+   {% endif %}
+  <label for="inputEmail" class="sr-only">Username</label>
+  <input type="text" id="inputEmail" class="form-control" placeholder="usernama" name="username_data" required= autofocus>
+  <p class="caution_text">　◆[usernama]はCOORDIに於けるあなたの表示名です。ニックネームになります。◆</p>
+  <input type="password" id="inputPassword" class="form-control" placeholder="userID" name="password_data" required>
+  <p class="caution_text">　◆[userID]はCOORDIに於けるあなたを特定するIDです。ログイン時使用します。◆</p>
+  <input type="password" id="inputPassword" class="form-control" placeholder="password" name="password_data" required>
+  <p class="caution_text">　◆[password]はCOORDIに於けるセキュリティの一つです。ログイン時使用します。◆</p>
+  <input type="password" id="inputPassword" class="form-control" placeholder="birthday" name="password_data" required>
+  <p class="caution_text">　◆[生年月日]はあなたの生年月日です。passwordリセットなどに使います。◆</p>
+  <input type="password" id="inputPassword" class="form-control" placeholder="e-mail" name="password_data" required>
+  <p class="caution_text">　◆[e-mail]はCOORDIからのお知らせや、passwordリセットなどに使います。◆</p>
+  <input type="password" id="inputPassword" class="form-control" placeholder="item" name="password_data" required>
+  <p class="caution_text">　◆COORDIにあなたの好きなアイテムを教えてください。◆</p>
+  <input type="password" id="inputPassword" class="form-control" placeholder="coode" name="password_data" required>
+  <p class="caution_text">　◆COORDIにあなたの好きなコーディネートを教えてください。◆</p>
+  <div class="checkbox mb-3">
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+  <p class="mt-5 mb-3 text-muted">© 2021</p>
+</form>
+</div>
+{% endblock content %}
