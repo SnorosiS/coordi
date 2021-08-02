@@ -5,16 +5,18 @@ from django.contrib.auth.models import User
 
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=20)
     birthday = models.DateField(default=None, null=True)
+
+def __str__(self):
+    return self.user.username
 
 class Item(models.Model):
     item = models.CharField(max_length=50)
-    accountid = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Coode(models.Model):
     coode = models.CharField(max_length=50)
-    accountid = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Daytrend(models.Model):
     daytrend = models.CharField(max_length=500)

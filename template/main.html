@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<p>ようこそ！{{ request.user.username }}さん！</p><br>
+<p>あなたの生年月日は{{ request.user.account.birthday }}です。</p><br>
+<a href="{% url 'todayyou' %}" class="btn btn-primary">今日のあなた</a>
+<a href="{% url 'signout' %}" class="btn btn-primary">signout</a>
+
+{% endblock content %}
