@@ -1,2 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+
 <p>{{request.user.username }}さんのout fit</p>>
 <a href="{% url 'todayyoumarking' %}" class="btn btn-primary">採点</a>
+
+{% endblock content %}
+

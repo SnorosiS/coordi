@@ -16,6 +16,25 @@
         <title>COORDI</title>
         <h2 style="text-align:center">～◆COORDI◆～</h2>
         <div class="container">
+          
+
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container px-4 px-lg-5">
+              <a class="navbar-brand" href="#!">ようこそ！{{ request.user.username }}さん！</a>
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" id="navbarDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">menu</a>
+                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url 'main' %}">main</a></li>
+                      <li><a class="dropdown-item" href="{% url 'todayyou' %}">今日のあなた</a></li>
+                      <li><a class="dropdown-item" href="{% url 'sns' %}">SNS</a></li>
+                      <li><a class="dropdown-item" href="{% url 'signout' %}">signout</a></li>
+                      </ul>
+                   </li>
+              </div>
+          </div>
+      </nav>
+
     {% block content %}
     {% endblock content %}
         </div>
