@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 def signupview(request):
     if request.method == 'GET':
         #初回到達ページ
-        return render(request, 'signup.html', {})
+        return render(request, 'sign/signup.html', {})
     else:
         #ﾕｰｻﾞｰが登録するﾃﾞｰﾀPOSTでﾃﾞｰﾀを渡す
         username_data = request.POST['username_data']
@@ -33,11 +33,11 @@ def signupview(request):
             return redirect('signin')
         #照会が失敗しすでにﾕｰｻﾞｰがいる場合ﾒｯｾｰｼﾞを出しsignup画面
         except IntegrityError:
-            return render(request, 'signup.html', {'error': 'このﾕｰｻﾞｰはすでに登録されています。'})
+            return render(request, 'sign/signup.html', {'error': 'このﾕｰｻﾞｰはすでに登録されています。'})
 
 def signinview(request):
     if request.method == 'GET':
-        return render(request, 'signin.html')
+        return render(request, 'sign/signin.html')
     else:
         username_data = request.POST['username_data']
         password_data = request.POST['password_data']
@@ -48,7 +48,7 @@ def signinview(request):
             return redirect('main')        
         else:
             #login失敗
-            return render(request,'signin.html', {'error': 'username,passwordが違います。'})
+            return render(request,'sign/signin.html', {'error': 'username,passwordが違います。'})
 
 def signoutview(request):
     logout(request)
@@ -57,16 +57,16 @@ def signoutview(request):
 
 @login_required
 def mainview(request):
-    return render(request, 'main.html' )
+    return render(request, 'main/main.html' )
 
 @login_required
 def todayyouview(request):
-    return render(request, 'todayyou.html')
+    return render(request, 'main/todayyou.html')
 
 @login_required
 def todayyoumarkingview(request):
-    return render(request, 'todayyoumarking.html' )
+    return render(request, 'main/todayyoumarking.html' )
 
 @login_required
 def snsview(request):
-    return render(request, 'sns.html',{'somedata':500} )
+    return render(request, 'main/sns.html',{'somedata':500} )
