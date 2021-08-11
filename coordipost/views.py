@@ -70,3 +70,5 @@ def todayyoumarkingview(request):
 @login_required
 def snsview(request):
     return render(request, 'main/sns.html',{'somedata':500} )
+
+
