@@ -7,7 +7,7 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ object.myimage.url }}" alt="..." /></div>
                     <div class="col-md-6">
                         <div class="small mb-1">@{{ request.user.username }}</div>
                         <h1 class="display-5 fw-bolder">今日のスタイル</h1>
@@ -15,7 +15,7 @@
                             <span class="text-decoration-line-through"></span>
                             <span></span>
                         </div>
-                        <p class="lead">今日のスタイル説明、自分のSNSでの投稿を表示</p>
+                        <p class="lead">{{ object.todaypoint }}</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -134,22 +134,101 @@
             </div>
         </section>
 
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <div class="container">
+
+          <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="daytrend-tab" data-bs-toggle="tab" role="tab" aria-controls="daytrend" aria-selected="true">今日のトレンド</a>
+              <a class="nav-link active" id="daytrend-tab"  href="#daytrend" data-bs-toggle="tab" role="tab" aria-controls="daytrend" aria-selected="true">今日のトレンド</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="munthtrend-tab" data-bs-toggle="tab" role="tab" aria-controls="munthtrend" aria-selected="false">今月のトレンド</a>
+              <a class="nav-link" id="munthtrend-tab" href="#munthtrend" data-bs-toggle="tab" role="tab" aria-controls="munthtrend" aria-selected="false">今月のトレンド</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="notice-tab" data-bs-toggle="tab" role="tab" aria-controls="notice" aria-selected="false">お知らせ</a>
+              <a class="nav-link" id="notice-tab" href="#notice" data-bs-toggle="tab" role="tab" aria-controls="notice" aria-selected="false">お知らせ</a>
             </li>
           </ul>
+
+
+
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="daytrend" role="tabpanel" aria-labelledby="daytrend-tab">それぞれ</div>
-            <div class="tab-pane fade" id="munthtrend" role="tabpanel" aria-labelledby="munthtrend-tab">DBから</div>
-            <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">持ってくる</div>
+            <div class="tab-pane fade show active" id="daytrend" role="tabpanel" aria-labelledby="daytrend-tab">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        {% if daytrend.myimage %}
+                        <div class="col-md-8">
+                            <div class="card-body">
+                              <p class="card-text">{{ daytrend.daytrend|linebreaksbr }}</p>
+                            </div>
+                          </div>
+                        <div class="col-md-4">
+                            <img src="{{ daytrend.myimage.url }}" class="img-fluid">
+                        </div>
+                        {% else %}
+                        <div class="col-md-12">
+                            <div class="card-body">
+                              <p class="card-text">{{ daytrend.daytrend|linebreaksbr }}</p>
+                            </div>
+                          </div>
+                        {% endif %}
+                        
+                    </div>
+                  </div>
+            </div>
+
+
+
+
+            <div class="tab-pane fade" id="munthtrend" role="tabpanel" aria-labelledby="munthtrend-tab">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        {% if munthtrend.myimage %}
+                        <div class="col-md-8">
+                            <div class="card-body">
+                              <p class="card-text">{{ munthtrend.munthtrend|linebreaksbr }}</p>
+                            </div>
+                          </div>
+                        <div class="col-md-4">
+                            <img src="{{ daytrend.myimage.url }}" class="img-fluid">
+                        </div>
+                        {% else %}
+                        <div class="col-md-12">
+                            <div class="card-body">
+                              <p class="card-text">{{ munthtrend.munthtrend|linebreaksbr }}</p>
+                            </div>
+                          </div>
+                        {% endif %}
+                        </div>
+                    </div>
+            </div>
+
+
+
+            <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        {% if notice.myimage %}
+                        <div class="col-md-8">
+                            <div class="card-body">
+                              <p class="card-text">{{ notice.notice|linebreaksbr }}</p>
+                            </div>
+                          </div>
+                        <div class="col-md-4">
+                            <img src="{{ daytrend.myimage.url }}" class="img-fluid">
+                        </div>
+                        {% else %}
+                        <div class="col-md-12">
+                            <div class="card-body">
+                              <p class="card-text">{{ notice.notice|linebreaksbr }}</p>
+                            </div>
+                          </div>
+                        {% endif %}
+                        </div>
+                    </div>
+            </div>
+
+            </div>
           </div>
+        </div>
 
 
 

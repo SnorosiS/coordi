@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.db import IntegrityError,transaction
-from .models import Account,Item,Coode
+from .models import Account,Item,Coode,Daytrend,Munthtrend,Notice,Marking
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
@@ -57,15 +57,31 @@ def signoutview(request):
 
 @login_required
 def mainview(request):
-    return render(request, 'main/main.html' )
+    daytrend = Daytrend.objects.latest('updatedate' )
+    munthtrend = Munthtrend.objects.latest('updatedate')
+    notice = Notice.objects.latest('updatedate')
+    object = Marking.objects.filter(user=request.user).latest('updatedate')
+    return render(
+        request,
+        'main/main.html' ,
+        { 'daytrend':daytrend,'munthtrend':munthtrend,'notice':notice , 'object':object}
+    )
+
+
 
 @login_required
 def todayyouview(request):
+    if request.method == 'POST':
+        todeypoint= request.POST['todeypoint']
+        myimage = request.FILES['myimage']
+        Marking.objects.create(user=request.user, todeypoint=todeypoint,myimage=myimage)
+        return redirect('todayyoumarking')
     return render(request, 'main/todayyou.html')
 
 @login_required
 def todayyoumarkingview(request):
-    return render(request, 'main/todayyoumarking.html' )
+    object = Marking.objects.filter(user=request.user).latest('updatedate')
+    return render(request, 'main/todayyoumarking.html' , {'object':object})
 
 @login_required
 def snsview(request):

@@ -1,10 +1,11 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block content %}
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{% static 'img/wsa1910080700002-p1.jpeg' %}" alt="..." /></div>
             <div class="col-md-6">
                 <div class="small mb-1">@{{ request.user.username }}</div>
                 <h1 class="display-5 fw-bolder">今日のスタイル</h1>
@@ -12,22 +13,18 @@
                     <span class="text-decoration-line-through"></span>
                     <span></span>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">今日のスタイル</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1">
+                <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">今日のポイント</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="todeypoint" rows="3"></textarea>
                   </div>
                   <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">コメント</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label for="formFile" class="form-label">今日のあなた</label>
+                    <input class="form-control" type="file" name="myimage" id="formFile">
                   </div>
-                <div class="d-flex">
-                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        いいね！
-                    </button>
-                </div>
-                <a href="{% url 'todayyoumarking' %}" class="btn btn-primary" role="button">採点</a>
+                  <input type="submit" class="btn btn-primary mt-3" role="button" value="採点">
+                  <a href="{% url 'todayyoumarking' %}">結果</a>
+                </form>
             </div>
         </div>
     </div>

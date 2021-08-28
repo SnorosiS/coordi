@@ -1,9 +1,14 @@
 {% extends 'main/base.html' %}
 {% block content %}
-
+<div class="container">
 <p>{{request.user.username }}さんの点数は・・・</p>
-<p>                 点です</p>
-
+<p>upper:{{ object.upper }}点</p>
+<a>+</a>
+<p>lower{{ object.lower }}点</p>
+<p>outfitscore:{{ object.outfitscore }}点</p>
+<p>{{ object.todaypoint }}</p>
+<p><img style="width: 500px;" src="{{ object.myimage.url }}"></p>
 <a href="{% url 'sns' %}" class="btn btn-primary">内容を投稿</a>
+</div>
 
 {% endblock content %}
