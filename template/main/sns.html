@@ -1,6 +1,22 @@
 {% extends 'main/base.html' %}
 {% block content %}
-
-{{somedata}}
-
+<div class="container">
+<div class="card ">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="..." alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <textarea class="form-control" id="exampleFormControlTextarea1" name="todeypoint" rows="3" placeholder="今何してる？"></textarea>
+        </div>
+        <div class="mb-3">
+          <input class="form-control" type="file" name="myimage" id="formFile">
+        </div>
+        <input type="submit" class="btn btn-primary mt-3" role="button" value="投稿">
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

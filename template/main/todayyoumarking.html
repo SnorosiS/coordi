@@ -1,13 +1,40 @@
 {% extends 'main/base.html' %}
 {% block content %}
 <div class="container">
-<p>{{request.user.username }}さんの点数は・・・</p>
-<p>upper:{{ object.upper }}点</p>
-<a>+</a>
-<p>lower{{ object.lower }}点</p>
-<p>outfitscore:{{ object.outfitscore }}点</p>
-<p>{{ object.todaypoint }}</p>
-<p><img style="width: 500px;" src="{{ object.myimage.url }}"></p>
+
+
+
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ object.myimage.url }}" alt="..." /></div>
+            <div class="col-md-6">
+                <div class="small mb-1">@{{ request.user.username }}</div>
+                <h1 class="display-5 fw-bolder">今日のスタイル</h1>
+                <div class="fs-5 mb-5">
+                    <span class="text-decoration-line-through"></span>
+                    <h3>{{request.user.username }}さんの点数は・・・</h3>
+                    <br>upper:{{ object.upper }}点<br>+</br>lower{{ object.lower }}点</p>
+                    <div class="alert alert-primary" role="alert">
+                    <p class="h4"><u>outfitscore:{{ object.outfitscore }}点</u></p>
+                    </div>
+                    <figcaption class="figure-caption">コメント</figcaption>
+                    <p>{{ object.todaypoint }}</p>
+                    <span></span>
+                </div>
+                <div class="d-flex">
+                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <i class="bi-cart-fill me-1"></i>
+                        いいね！
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <a href="{% url 'sns' %}" class="btn btn-primary">内容を投稿</a>
 </div>
 

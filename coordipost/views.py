@@ -72,9 +72,9 @@ def mainview(request):
 @login_required
 def todayyouview(request):
     if request.method == 'POST':
-        todeypoint= request.POST['todeypoint']
+        todaypoint= request.POST['todaypoint']
         myimage = request.FILES['myimage']
-        Marking.objects.create(user=request.user, todeypoint=todeypoint,myimage=myimage)
+        Marking.objects.create(user=request.user, todaypoint=todaypoint, myimage=myimage)
         return redirect('todayyoumarking')
     return render(request, 'main/todayyou.html')
 
