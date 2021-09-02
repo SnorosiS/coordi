@@ -84,7 +84,10 @@ def todayyoumarkingview(request):
     return render(request, 'main/todayyoumarking.html' , {'object':object})
 
 @login_required
-def snsview(request):
-    return render(request, 'main/sns.html',{'somedata':500} )
+def snsview(request, marking_id=None):
+    object=None
+    if marking_id:
+        object = Marking.objects.get(id=marking_id)
+    return render(request, 'main/sns.html', {'object':object})
 
 

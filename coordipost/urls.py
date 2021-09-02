@@ -24,6 +24,7 @@ urlpatterns = [
     path('main/', mainview, name='main'),
     path('todayyou/', todayyouview, name='todayyou'),
     path('sns/', snsview, name='sns'),
+    path('sns/<int:marking_id>/', snsview, name='snspost'),
     path('todayyoumarking/', todayyoumarkingview, name='todayyoumarking'),
 
     
