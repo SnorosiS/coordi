@@ -4,7 +4,7 @@ from django.db import IntegrityError,transaction
 from .models import Account,Item,Coode,Daytrend,Munthtrend,Notice,Marking
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
+from google_cloud.vision_api import detect_safe_search
 
 # Create your views here.
 
@@ -81,6 +81,8 @@ def todayyouview(request):
 @login_required
 def todayyoumarkingview(request):
     object = Marking.objects.filter(user=request.user).latest('updatedate')
+    safe_search = detect_safe_search(object.myimage.path)
+    print(safe_search)
     return render(request, 'main/todayyoumarking.html' , {'object':object})
 
 @login_required
