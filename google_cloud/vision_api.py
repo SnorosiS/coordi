@@ -1,0 +1,33 @@
+# https://cloud.google.com/vision/docs/detecting-safe-search?hl=ja
+from google.cloud import vision
+import io
+
+def detect_safe_search(path: str) -> dict:
+    """Detects unsafe features in the file."""
+    client = vision.ImageAnnotatorClient()
+
+    with io.open(path, 'rb') as image_file:
+        content = image_file.read()
+
+    image = vision.Image(content=content)
+
+    response = client.safe_search_detection(image=image)
+    safe = response.safe_search_annotation
+
+    # Names of likelihood from google.cloud.vision.enums
+    likelihood_name = ('UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE',
+                       'LIKELY', 'VERY_LIKELY')
+
+    if response.error.message:
+        raise Exception(
+            '{}\nFor more info on error messages, check: '
+            'https://cloud.google.com/apis/design/errors'.format(
+                response.error.message))
+
+    return {
+        'adult': likelihood_name[safe.adult],
+        'medical': likelihood_name[safe.medical],
+        'spoofed': likelihood_name[safe.spoof],
+        'violence': likelihood_name[safe.violence],
+        'racy': likelihood_name[safe.racy],
+    }
