@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.db import IntegrityError,transaction
-from .models import Account,Item,Coode,Daytrend,Munthtrend,Notice,Marking
+from .models import Account,Item,Coode,Daytrend,Munthtrend,Notice,Marking,Sns
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
@@ -88,6 +88,11 @@ def snsview(request, marking_id=None):
     object=None
     if marking_id:
         object = Marking.objects.get(id=marking_id)
+        
+    if request.method == 'POST':
+        post= request.POST['post']
+        myimage = request.FILES['myimage']
+        Sns.objects.create(user=request.user, post=post, myimage=myimage)
     return render(request, 'main/sns.html', {'object':object})
 
 
