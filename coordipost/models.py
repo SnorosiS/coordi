@@ -48,5 +48,8 @@ class Sns(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     good = models.IntegerField(default=0)
     updatedate = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.post
 
 

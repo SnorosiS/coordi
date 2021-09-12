@@ -92,9 +92,11 @@ def snsview(request, marking_id=None):
         object = Marking.objects.get(id=marking_id)
         
     if request.method == 'POST':
-        post= request.POST['post']
-        myimage = request.FILES['myimage']
+        post= request.POST.get('post')
+        myimage = request.FILES.get('myimage')
         Sns.objects.create(user=request.user, post=post, myimage=myimage)
-    return render(request, 'main/sns.html', {'object':object})
+        
+    sns_list = Sns.objects.filter(userid=request.user) 
+    return render(request, 'main/sns.html', {'object':object, 'sns_list':sns_list})
 
 
