@@ -92,11 +92,11 @@ def snsview(request, marking_id=None):
         object = Marking.objects.get(id=marking_id)
         
     if request.method == 'POST':
-        post= request.POST.get('post')
+        post= request.POST.get('todaypoint')
         myimage = request.FILES.get('myimage')
-        Sns.objects.create(user=request.user, post=post, myimage=myimage)
+        Sns.objects.create(userid=request.user, post=post, myimage=myimage)
         
-    sns_list = Sns.objects.filter(userid=request.user) 
+    sns_list = Sns.objects.filter(userid=request.user).order_by('-updatedate')
     return render(request, 'main/sns.html', {'object':object, 'sns_list':sns_list})
 
 
