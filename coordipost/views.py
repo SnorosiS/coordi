@@ -74,15 +74,20 @@ def todayyouview(request):
     if request.method == 'POST':
         todaypoint= request.POST['todaypoint']
         myimage = request.FILES['myimage']
-        Marking.objects.create(user=request.user, todaypoint=todaypoint, myimage=myimage)
+        object = Marking.objects.create(user=request.user, todaypoint=todaypoint, myimage=myimage)
+        safe_search = detect_safe_search(object.myimage.path)
+        print(safe_search)
+        point = (0,0,5,10,15,20)
+        outfitscore = 100-point[ safe_search['adult']]-point[safe_search['spoofed']]-point[safe_search['violence']]-point[safe_search['racy']]
+        object.outfitscore=outfitscore
+        object.save()
         return redirect('todayyoumarking')
     return render(request, 'main/todayyou.html')
 
 @login_required
 def todayyoumarkingview(request):
     object = Marking.objects.filter(user=request.user).latest('updatedate')
-    safe_search = detect_safe_search(object.myimage.path)
-    print(safe_search)
+    
     return render(request, 'main/todayyoumarking.html' , {'object':object})
 
 @login_required
@@ -93,8 +98,12 @@ def snsview(request, marking_id=None):
         
     if request.method == 'POST':
         post= request.POST.get('todaypoint')
-        myimage = request.FILES.get('myimage')
+        if marking_id:
+            myimage = Marking.objects.get(id=marking_id).myimage
+        else:
+            myimage = request.FILES.get('myimage')
         Sns.objects.create(userid=request.user, post=post, myimage=myimage)
+        return redirect('sns')
         
     sns_list = Sns.objects.filter(userid=request.user).order_by('-updatedate')
     return render(request, 'main/sns.html', {'object':object, 'sns_list':sns_list})

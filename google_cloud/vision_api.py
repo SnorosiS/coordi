@@ -5,7 +5,7 @@ import io
 
 def detect_safe_search(path: str) -> dict:
     """Detects unsafe features in the file."""
-    service_account_file = '/Users/nakamatsu/Downloads/service-account-file.json'
+    service_account_file = '/Users/masiro/Downloads/service-account-file.json'
     credentials = service_account.Credentials.from_service_account_file(service_account_file)
     client = vision.ImageAnnotatorClient(credentials=credentials)
 
@@ -28,9 +28,9 @@ def detect_safe_search(path: str) -> dict:
                 response.error.message))
 
     return {
-        'adult': likelihood_name[safe.adult],
-        'medical': likelihood_name[safe.medical],
-        'spoofed': likelihood_name[safe.spoof],
-        'violence': likelihood_name[safe.violence],
-        'racy': likelihood_name[safe.racy],
+        'adult': safe.adult,
+        'medical': safe.medical,
+        'spoofed': safe.spoof,
+        'violence': safe.violence,
+        'racy': safe.racy,
     }

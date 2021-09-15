@@ -1,26 +1,27 @@
 {% extends 'main/base.html' %}
 {% block content %}
 <div class="container">
-  <div class="card ">
-    <div class="row g-0">
-      <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-      <div class="col-md-4">
-        <img src="{{ object.myimage.url }}" class="card-img-top mb-5 mb-md-0" >
-      </div>
+  <div class="card">
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{ object.myimage.url }}" class="card-img-top mb-5 mb-md-0" >
+        </div>
         <div class="col-md-8">
           <div class="card-body">
             <div class="mb-3">
-              <textarea class="form-control" id="exampleFormControlTextarea1" name="todaypoint" rows="3" placeholder="今何してる？">{{ object.todaypoint }}</textarea>
+              <textarea class="form-control" id="exampleFormControlTextarea1" name="todaypoint" rows="3" placeholder="今何してる？">{{ object.todaypoint }}¥n{{object.outfitscore}}</textarea>
             </div>
-          <div class="mb-3">
-            <input class="form-control" type="file" name="myimage" id="formFile">
-          </div>
-          <input type="submit" class="btn btn-primary mt-3" role="button" value="投稿">
+            <div class="mb-3">
+              <input class="form-control" type="file" name="myimage" id="formFile">
+            </div>
+            <input type="submit" class="btn btn-primary mt-3" role="button" value="投稿">
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
+
 
 
 
@@ -49,7 +50,7 @@
         <div class="card-body">
           <h5 class="card-title">{{  item.post }}</h5>
           <p class="card-text"></p>
-          <p class="card-text"><small class="text-muted"></small></p>
+          <p class="card-text"><small class="text-muted">{{  item.updatedate|date:"Y/m/d G:i" }}</small></p>
         </div>
       </div>
     </div>
