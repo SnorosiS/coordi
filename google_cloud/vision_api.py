@@ -1,10 +1,13 @@
 # https://cloud.google.com/vision/docs/detecting-safe-search?hl=ja
+from google.oauth2 import service_account
 from google.cloud import vision
 import io
 
 def detect_safe_search(path: str) -> dict:
     """Detects unsafe features in the file."""
-    client = vision.ImageAnnotatorClient()
+    service_account_file = '/Users/nakamatsu/Downloads/service-account-file.json'
+    credentials = service_account.Credentials.from_service_account_file(service_account_file)
+    client = vision.ImageAnnotatorClient(credentials=credentials)
 
     with io.open(path, 'rb') as image_file:
         content = image_file.read()
