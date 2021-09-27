@@ -2,8 +2,11 @@
 {% block content %}
 
 <div class="yoko">
+{% if form.errors %}
+<div class="alert alert-danger">エラーが発生しました。内容の確認してください。</div>
+{% endif %}
 
-<form class="form-signin" method='post'>{% csrf_token %}
+<form class="form-signin" method='post' novalidate>{% csrf_token %}
   
   
   <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
@@ -11,7 +14,8 @@
    {{ error }}
    {% endif %}
  
-  <input type="text"  class="form-control" placeholder="username" name="username_data" required= autofocus>
+{{ form.as_p }}
+  <!--<input type="text"  class="form-control" placeholder="username" name="username_data" required= autofocus>
   <p class="caution_text">　◆[username]はCOORDIに於けるあなたを特定するIDです。ログイン時使用します。◆</p>
 
   <input type="password"  class="form-control" placeholder="password" name="password_data" required>
@@ -27,7 +31,7 @@
   <p class="caution_text">　◆COORDIにあなたの好きなアイテムを教えてください。◆</p>
 
   <input type="text"  class="form-control" placeholder="coode" name="coode_data" >
-  <p class="caution_text">　◆COORDIにあなたの好きなコーディネートを教えてください。◆</p>
+  <p class="caution_text">　◆COORDIにあなたの好きなコーディネートを教えてください。◆</p>-->
 
   <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 </form>

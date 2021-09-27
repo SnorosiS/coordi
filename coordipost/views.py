@@ -5,6 +5,7 @@ from .models import Account,Item,Coode,Daytrend,Munthtrend,Notice,Marking,Sns
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from google_cloud.vision_api import detect_safe_search
+from .forms import UserForm
 
 # Create your views here.
 
@@ -12,28 +13,33 @@ from google_cloud.vision_api import detect_safe_search
 def signupview(request):
     if request.method == 'GET':
         #初回到達ページ
-        return render(request, 'sign/signup.html', {})
+        form = UserForm()
+        return render(request, 'sign/signup.html', {'form': form})
     else:
         #ﾕｰｻﾞｰが登録するﾃﾞｰﾀPOSTでﾃﾞｰﾀを渡す
-        username_data = request.POST['username_data']
-        email_data = request.POST['email_data']
-        password_data = request.POST['password_data']
-        birthday_data = request.POST['birthday_data']
-        item_data = request.POST['item_data']
-        coode_data = request.POST['coode_data']
-        #try内の処理を行う
-        try:
-            #userを作る
-            user = User.objects.create_user(username_data,email_data,password_data)
-            #user=userでDjangoの持っているuserにaccount、item、coodeが紐付く
-            Account.objects.create(user=user, birthday=birthday_data)
-            Item.objects.create(user=user, item=item_data)
-            Coode.objects.create(user=user, coode=coode_data)
-            #照会が成功しﾕｰｻﾞｰ登録完了したらsignin画面
-            return redirect('signin')
-        #照会が失敗しすでにﾕｰｻﾞｰがいる場合ﾒｯｾｰｼﾞを出しsignup画面
-        except IntegrityError:
-            return render(request, 'sign/signup.html', {'error': 'このﾕｰｻﾞｰはすでに登録されています。'})
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username_data = form.changed_data['username']
+            email_data = form.changed_data['email_data']
+            password_data = form.changed_data['password_data']
+            birthday_data = form.changed_data['birthday_data']
+            #item_data = request.POST['item_data']
+            #coode_data = request.POST['coode_data']
+            #try内の処理を行う
+            try:
+                #userを作る
+                user = User.objects.create_user(username_data,email_data,password_data)
+                #user=userでDjangoの持っているuserにaccount、item、coodeが紐付く
+                Account.objects.create(user=user, birthday=birthday_data)
+                #Item.objects.create(user=user, item=item_data)
+                #Coode.objects.create(user=user, coode=coode_data)
+                #照会が成功しﾕｰｻﾞｰ登録完了したらsignin画面
+                return redirect('signin')
+            #照会が失敗しすでにﾕｰｻﾞｰがいる場合ﾒｯｾｰｼﾞを出しsignup画面
+            except IntegrityError:
+                return render(request, 'sign/signup.html', {'error': 'このﾕｰｻﾞｰはすでに登録されています。'})
+        else:
+            return render(request, 'sign/signup.html', {'form': form})
 
 def signinview(request):
     if request.method == 'GET':
