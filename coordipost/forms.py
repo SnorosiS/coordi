@@ -35,5 +35,14 @@ class UserForm(forms.Form):
         choices=[(1, 'カジュアル')],
         widget=forms.SelectMultiple(attrs={'class': 'form-select'})
     )
+'''
+    def clean(self):
+        username = self.cleaned_data['username']
+        email = self.cleaned_data['email']
+        if :
+            raise forms.ValidationError('他のUserと重複しています。')
+        return self.cleaned_data
+'''
+
     
 
