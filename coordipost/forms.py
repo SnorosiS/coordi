@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
  
  
@@ -35,14 +36,18 @@ class UserForm(forms.Form):
         choices=[(1, 'カジュアル')],
         widget=forms.SelectMultiple(attrs={'class': 'form-select'})
     )
-'''
+
     def clean(self):
         username = self.cleaned_data['username']
+        if User.objects.filter(username=username).count():
+            raise forms.ValidationError('重複する名前があります')
+        return username
+    '''
+    def clean(self):
         email = self.cleaned_data['email']
-        if :
-            raise forms.ValidationError('他のUserと重複しています。')
-        return self.cleaned_data
-'''
-
+        if User.objects.filter(email=email).count():
+            raise forms.ValidationError('重複するメールアドレスがあります')
+        return email
+    '''
     
 
