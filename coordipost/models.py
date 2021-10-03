@@ -39,7 +39,7 @@ class Marking(models.Model):
     upper = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     lower = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     todaypoint = models.CharField(max_length=500)
-    myimage = models.ImageField(upload_to='', blank=True, null=True)
+    myimage = models.ImageField(upload_to='', default=None, null=True)
     updatedate = models.DateTimeField(auto_now=True)
 
 class Sns(models.Model):

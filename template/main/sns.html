@@ -5,12 +5,15 @@
     <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="{{ object.myimage.url }}" class="card-img-top mb-5 mb-md-0" >
+          {% if object.myimage %}<img src="{{ object.myimage.url }}" class="card-img-top mb-5 mb-md-0" >{% endif %}
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <div class="mb-3">
-              <textarea class="form-control" id="exampleFormControlTextarea1" name="todaypoint" rows="3" placeholder="今何してる？">{{ object.todaypoint }}¥n{{object.outfitscore}}</textarea>
+              <textarea class="form-control" id="exampleFormControlTextarea1" name="todaypoint" rows="3" placeholder="今何してる？">
+{{ object.todaypoint }}
+{% if  object.outfitscore %}outfitscore:{{object.outfitscore}}{% endif %}
+              </textarea>
             </div>
             <div class="mb-3">
               <input class="form-control" type="file" name="myimage" id="formFile">
@@ -23,21 +26,7 @@
   </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
   {% for item in sns_list %}
   <div class="card mt-5" style="max-width: 540px;">
     <div class="row g-0">
@@ -48,7 +37,7 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">{{  item.post }}</h5>
+          <h5 class="card-title">{{  item.post |linebreaksbr }}</h5>
           <p class="card-text"></p>
           <p class="card-text"><small class="text-muted">{{  item.updatedate|date:"Y/m/d G:i" }}</small></p>
         </div>

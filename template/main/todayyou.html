@@ -15,14 +15,16 @@
                 <div class="fs-5 mb-5">
                     <span class="text-decoration-line-through"></span>
                 </div>
-                <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <form action="" method="post" enctype="multipart/form-data" novalidate>{% csrf_token %}
                   <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">今日のポイント</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="todaypoint" rows="3"></textarea>
+                    <label for="{{ form.todaypoint.auto_id }}">{{ form.todaypoint.label }}</label>
+                    {{ form.todaypoint }}
+                    {{ form.todaypoint.errors }}
                   </div>
                   <div class="mb-3">
-                    <label for="formFile" class="form-label">今日のあなた</label>
-                    <input class="form-control" type="file" name="myimage" id="formFile">
+                    <label for="{{ form.myimage.auto_id }}">{{ form.myimage.label }}</label>
+                    {{ form.myimage }}
+                    {{ form.myimage.errors }}
                   </div>
                   <input type="submit" class="btn btn-primary mt-3" role="button" value="採点">
                   <a href="{% url 'todayyoumarking' %}">結果</a>
