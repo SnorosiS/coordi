@@ -135,12 +135,17 @@ def todayyoumarkingview(request):
 @login_required
 #→loginで成功したが”login_required”を通過できる
 def snsview(request, marking_id=None):
+    #→marking_idを取得するする。なければスルー
     object=None
+    
     if marking_id:
         object = Marking.objects.get(id=marking_id)
+        #→marking_idをobjectに持ってくる
         
     if request.method == 'POST':
+        #→もしPOSTでリクエストされた場合
         post= request.POST.get('todaypoint')
+        #→postにtodaypointを持ってくる
         if marking_id:
             myimage = Marking.objects.get(id=marking_id).myimage
         else:
